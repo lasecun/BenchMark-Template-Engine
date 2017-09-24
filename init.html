@@ -1,0 +1,266 @@
+<div id="result"></div>
+
+<!-- Underscore -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+
+<!-- Handlebars -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
+
+<script>
+    // The result div
+    var result = document.getElementById('result');
+
+    // The template data
+    var data = {
+        header: "Colors",
+        items: [
+            {name: "red", current: true, url: "#Red"},
+            {name: "green", current: false, url: "#Green"},
+            {name: "blue", current: false, url: "#Blue"}
+        ],
+        hasItems: true
+    };
+
+    // Template namespace
+    this["templates"] = this["templates"] || {};
+
+    /*
+      TEMPLATES
+
+      * Insert precompiled templates below, at the bottom.
+
+      * If the language can be precompiled, paste the template source and version number.
+
+      * If the language requires client-slide
+    */
+
+    // DOMLy 0.0.1
+    this["templates"]["domly"] = (function anonymous(data_0) {
+        var frag = document.createDocumentFragment();
+        var data = data_0;
+        var el0 = document.createElement("h1");
+        el0.textContent = data_0["header"];
+        frag.appendChild(el0);
+        if (data_0["hasItems"]) {
+            var el4 = document.createElement("ul");
+            var iterated_1 = data_0["items"];
+            for (var i1 = 0, ni1 = iterated_1.length; i1 < ni1; i1++) {
+                var data_1 = data = iterated_1[i1];
+                if (data_1["current"]) {
+                    var el10 = document.createElement("li");
+                    var el11 = document.createElement("strong");
+                    el11.textContent = data_1["name"];
+                    el10.appendChild(el11);
+                    el4.appendChild(el10);
+                }
+                else {
+                    var el14 = document.createElement("li");
+                    var el15 = document.createElement("a");
+                    el15.setAttribute("href", data_1["url"]);
+                    el15.textContent = data_1["name"];
+                    el14.appendChild(el15);
+                    el4.appendChild(el14);
+                }
+            }
+            frag.appendChild(el4);
+        }
+        else {
+            var el21 = document.createElement("p");
+            el21.textContent = "The list is empty.";
+            frag.appendChild(el21);
+        }
+        return frag;
+    });
+
+
+    // Handlebars 1.3.0
+    this["templates"]["handlebars"] = Handlebars.template(function (Handlebars, depth0, helpers, partials, data) {
+        this.compilerInfo = [4, '>= 1.0.0'];
+        helpers = this.merge(helpers, Handlebars.helpers);
+        data = data || {};
+        var buffer = "", stack1, functionType = "function", escapeExpression = this.escapeExpression, self = this;
+
+        function program1(depth0, data) {
+
+            var buffer = "", stack1;
+            buffer += "\n  <ul>\n  ";
+            stack1 = helpers.each.call(depth0, (depth0 && depth0.items), {
+                hash: {},
+                inverse: self.noop,
+                fn: self.program(2, program2, data),
+                data: data
+            });
+            if (stack1 || stack1 === 0) {
+                buffer += stack1;
+            }
+            buffer += "\n  </ul>\n";
+            return buffer;
+        }
+
+        function program2(depth0, data) {
+
+            var buffer = "", stack1;
+            buffer += "\n    ";
+            stack1 = helpers['if'].call(depth0, (depth0 && depth0.current), {
+                hash: {},
+                inverse: self.program(5, program5, data),
+                fn: self.program(3, program3, data),
+                data: data
+            });
+            if (stack1 || stack1 === 0) {
+                buffer += stack1;
+            }
+            buffer += "\n  ";
+            return buffer;
+        }
+
+        function program3(depth0, data) {
+
+            var buffer = "", stack1;
+            buffer += "\n      <li><strong>";
+            if (stack1 = helpers.name) {
+                stack1 = stack1.call(depth0, {hash: {}, data: data});
+            }
+            else {
+                stack1 = (depth0 && depth0.name);
+                stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash: {}, data: data}) : stack1;
+            }
+            buffer += escapeExpression(stack1)
+                + "</strong></li>\n    ";
+            return buffer;
+        }
+
+        function program5(depth0, data) {
+
+            var buffer = "", stack1;
+            buffer += "\n      <li><a href=\"";
+            if (stack1 = helpers.url) {
+                stack1 = stack1.call(depth0, {hash: {}, data: data});
+            }
+            else {
+                stack1 = (depth0 && depth0.url);
+                stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash: {}, data: data}) : stack1;
+            }
+            buffer += escapeExpression(stack1)
+                + "\">";
+            if (stack1 = helpers.name) {
+                stack1 = stack1.call(depth0, {hash: {}, data: data});
+            }
+            else {
+                stack1 = (depth0 && depth0.name);
+                stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash: {}, data: data}) : stack1;
+            }
+            buffer += escapeExpression(stack1)
+                + "</a></li>\n    ";
+            return buffer;
+        }
+
+        function program7(depth0, data) {
+
+
+            return "\n  <p>The list is empty.</p>\n";
+        }
+
+        buffer += "<h1>";
+        if (stack1 = helpers.header) {
+            stack1 = stack1.call(depth0, {hash: {}, data: data});
+        }
+        else {
+            stack1 = (depth0 && depth0.header);
+            stack1 = typeof stack1 === functionType ? stack1.call(depth0, {hash: {}, data: data}) : stack1;
+        }
+        buffer += escapeExpression(stack1)
+            + "</h1>\n";
+        stack1 = helpers['if'].call(depth0, (depth0 && depth0.hasItems), {
+            hash: {},
+            inverse: self.program(7, program7, data),
+            fn: self.program(1, program1, data),
+            data: data
+        });
+        if (stack1 || stack1 === 0) {
+            buffer += stack1;
+        }
+        return buffer;
+    });
+
+
+    // Underscore 1.6.0
+    this["templates"]["underscore"] = function (obj) {
+        var __t, __p = '', __j = Array.prototype.join, print = function () {
+            __p += __j.call(arguments, '');
+        };
+        with (obj || {}) {
+            __p += '<h1>' +
+                ((__t = ( obj.header )) == null ? '' : _.escape(__t)) +
+                '</h1>';
+            if (obj.hasItems) {
+                __p += '  <ul>  ';
+                _.each(obj.items, function (item) {
+                    __p += '    ';
+                    if (item.current) {
+                        __p += '      <li><strong>' +
+                            ((__t = ( item.name )) == null ? '' : _.escape(__t)) +
+                            '</strong></li>    ';
+                    } else {
+                        __p += '      <li><a href="' +
+                            ((__t = ( item.url )) == null ? '' : _.escape(__t)) +
+                            '">' +
+                            ((__t = ( item.name )) == null ? '' : _.escape(__t)) +
+                            '</a></li>    ';
+                    }
+                    __p += '  ';
+                });
+                __p += '  </ul>';
+            } else {
+                __p += '  <p>The list is empty.</p>';
+            }
+            __p += '';
+        }
+        return __p;
+    };
+
+
+    // doT 1.0.2
+    this["templates"]["dot"] = function anonymous(it) {
+        var out = '<h1>' + (it.header) + '</h1>';
+        if (it.hasItems) {
+            out += ' <ul> ';
+            var arr1 = it.items;
+            if (arr1) {
+                var item, index = -1, l1 = arr1.length - 1;
+                while (index < l1) {
+                    item = arr1[index += 1];
+                    out += ' ';
+                    if (item.current) {
+                        out += ' <li><strong>' + (item.name) + '</strong></li> ';
+                    } else {
+                        out += ' <li><a href="' + (item.url) + '">' + (item.name) + '</a></li> ';
+                    }
+                    out += ' ';
+                }
+            }
+            out += ' </ul>';
+        } else {
+            out += ' <p>The list is empty.</p>';
+        }
+        return out;
+    };
+
+</script>
+
+
+<script>
+
+
+    Benchmark.prototype.teardown = function () {
+
+
+        while (result.firstChild) {
+            result.removeChild(result.firstChild);
+        }
+
+
+    };
+
+
+</script>
